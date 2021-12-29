@@ -40,6 +40,10 @@ keywords if then else endif, or, and are better readable for beginners (others m
 
 \*********************************************************************************************/
 
+
+#include <sml_scripts.h>
+
+
 #define XDRV_10             10
 
 #define SCRIPT_DEBUG 0
@@ -5514,11 +5518,13 @@ const char HTTP_FORM_SCRIPT[] PROGMEM =
 const char HTTP_FORM_SCRIPT1[] PROGMEM =
     "<div style='text-align:right' id='charNum'> </div>"
     "<label><input style='width:3%%;' id='c%d' name='c%d' type='checkbox'%s><b>" D_SCRIPT_ENABLE "</b></label><br/>"
+    SCRIPT_SML_SELECT
     "<br><textarea  id='t1' name='t1' rows='8' cols='80' maxlength='%d' style='font-size: 12pt' >";
 
 const char HTTP_FORM_SCRIPT1b[] PROGMEM =
     "</textarea>"
     "<script type='text/javascript'>"
+    SCRIPT_SML_SELECT_HANDLER
     "eb('charNum').innerHTML='-';"
     "var ta=eb('t1');"
     "ta.addEventListener('keydown',function(e){"
