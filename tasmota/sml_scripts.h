@@ -2,6 +2,9 @@
 #ifndef _SML_SCRIPTS_H_
 #define _SML_SCRIPTS_H_
 
+#define SCRIPT_SML_DOWNLOAD_URL "https://bsc101.eu/downloads/esplesekopf/"
+#define SCRIPT_SML_DOWNLOAD_URL_SMARTMETERS "https://bsc101.eu/downloads/esplesekopf/smartmeters.json"
+
 #define SCRIPT_ISKRA_MT_681_SML "" \
     ">D\\n" \
     ">B\\n" \
@@ -35,15 +38,21 @@
     "<option value='sm_ehz161'>Hager EHZ161 (OBIS)</option>"
 
 #define SCRIPT_SML_SELECT_FUNCTION "" \
-    "if (selSM.value=='sm_mt681') {ta.innerHTML='" SCRIPT_ISKRA_MT_681_SML "'}" \
-    "else if (selSM.value=='sm_ehz161') {ta.innerHTML='" SCRIPT_HAGER_EHZ161_OBIS "'}" \
-    "else {ta.innerHTML=''}"
+    "if(selSM.value=='sm_mt681'){ta.innerHTML='" SCRIPT_ISKRA_MT_681_SML "'}" \
+    "else if(selSM.value=='sm_ehz161'){ta.innerHTML='" SCRIPT_HAGER_EHZ161_OBIS "'}" \
+    "else{ta.innerHTML='';fetch('" SCRIPT_SML_DOWNLOAD_URL "'+selSM.value,{cache:'no-store'}).then(response=>response.text()).then(content=>{ta.innerHTML=content;});}"
 
 #define SCRIPT_SML_SELECT "" \
     "<p><select id='idSelSM'>" SCRIPT_SML_SELECT_OPTIONS "</select></p>"
 
 #define SCRIPT_SML_SELECT_HANDLER "" \
     "var selSM=eb('idSelSM');" \
-    "selSM.onchange=function(){" SCRIPT_SML_SELECT_FUNCTION "};"
+    "selSM.onchange=function(){" SCRIPT_SML_SELECT_FUNCTION "};" \
+    "fetch('" SCRIPT_SML_DOWNLOAD_URL_SMARTMETERS "',{cache:'no-store'}).then(response=>response.json()).then(data=>{" \
+    "if(data && data.smartmeters && data.smartmeters.length){" \
+    "while(selSM.options.length>1){selSM.options.remove(1);}" \
+    "for(let n=0;n<data.smartmeters.length;n++){" \
+    "let o=document.createElement('option');o.value=data.smartmeters[n].filename;o.text=data.smartmeters[n].label;selSM.options.add(o);" \
+    "}}});"
 
 #endif
