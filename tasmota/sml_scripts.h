@@ -2,8 +2,8 @@
 #ifndef _SML_SCRIPTS_H_
 #define _SML_SCRIPTS_H_
 
-#define SCRIPT_SML_DOWNLOAD_URL "https://bsc101.eu/downloads/esplesekopf/"
-#define SCRIPT_SML_DOWNLOAD_URL_SMARTMETERS "https://bsc101.eu/downloads/esplesekopf/smartmeters.json"
+#define SCRIPT_SML_DOWNLOAD_URL "https://raw.githubusercontent.com/esplesekopf/Scripts/master/scripts/"
+#define SCRIPT_SML_DOWNLOAD_URL_SMARTMETERS "https://raw.githubusercontent.com/esplesekopf/Scripts/master/smartmeters.json"
 
 #define SCRIPT_ISKRA_MT_681_SML "" \
     ">D\\n" \
@@ -38,7 +38,8 @@
     "<option value='sm_ehz161'>Hager EHZ161 (OBIS)</option>"
 
 #define SCRIPT_SML_SELECT_FUNCTION "" \
-    "if(selSM.value=='sm_mt681'){ta.innerHTML='" SCRIPT_ISKRA_MT_681_SML "'}" \
+    "if(selSM.value=='sm_0'){ta.innerHTML=''}" \
+    "else if(selSM.value=='sm_mt681'){ta.innerHTML='" SCRIPT_ISKRA_MT_681_SML "'}" \
     "else if(selSM.value=='sm_ehz161'){ta.innerHTML='" SCRIPT_HAGER_EHZ161_OBIS "'}" \
     "else{ta.innerHTML='';fetch('" SCRIPT_SML_DOWNLOAD_URL "'+selSM.value,{cache:'no-store'}).then(response=>response.text()).then(content=>{ta.innerHTML=content;});}"
 
