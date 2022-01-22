@@ -5246,7 +5246,7 @@ int16_t Run_script_sub(const char *type, int8_t tlen, struct GVARS *gv) {
                             glob_script_mem.script_loglevel = *dfvar;
                             break;
                           case SCRIPT_TELEPERIOD:
-                            if (*dfvar<10) *dfvar = 10;
+                            if (*dfvar<1) *dfvar = 1;
                             if (*dfvar>300) *dfvar = 300;
                             Settings->tele_period = *dfvar;
                             break;
